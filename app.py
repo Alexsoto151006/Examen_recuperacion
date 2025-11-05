@@ -54,6 +54,20 @@ def mostrar_dispositivos_html():
     """
     return html
 
+@app.route('/dispositivos', methods=['POST'])
+def agregar_dispositivo():
+    nuevo = request.get_json()
+    dispositivos[nuevo['id']] = {
+        'nombre': nuevo['nombre'],
+        'descripcion': nuevo['descripcion'],
+        'ip': nuevo['ip'],
+        'mac': nuevo['mac'],
+        'ubicacion': nuevo['ubicacion'],
+        'tipo': nuevo['tipo'],
+        'otros': nuevo.get('otros', '')
+    }
+    return {"mensaje": "Dispositivo agregado correctamente"}, 201
+
 
 if __name__ == '__main__':
     app.run(debug=True)
